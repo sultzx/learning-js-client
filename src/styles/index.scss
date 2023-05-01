@@ -1,0 +1,644 @@
+// $theme-colors: (
+//   "primary": #00509d,
+//   "success": green,
+//   "info": #fdc500,
+//   "danger": red,
+// );
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: #013369;
+}
+
+.nav-link {
+    color: #E5F8FC;
+    margin: auto 20px
+}
+
+.signup-btn {
+    border: 1px solid yellow;
+    border-radius: 4px;
+
+
+    background-color: #ffb703;
+    color: white;
+    text-shadow: 2px 1px 1px #013369;
+}
+
+.form-control {
+    border: 2px solid #0353A4;
+    height: 46px;
+    background-color: #023E7D;
+    color: #82B3E4
+}
+
+.card {
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.page-heading,
+.base-hr,
+.form-label {
+    color: white
+}
+
+.card-body {
+    margin: 10px
+}
+
+.signup-btn {
+    height: 46px;
+    border: 1px solid yellow;
+    border-radius: 6px;
+    background-color: #dfa000;
+    color: white;
+}
+
+.text-mute {
+    color: rgb(192, 192, 192)
+}
+
+.profile-panel-basic-btn {
+    border: 2px solid #0076eb;
+    border-radius: 4px;
+    background-color: #0353A4;
+}
+
+.profile-main-panel {
+    padding: 200px 20px;
+}
+
+@media (max-width: 960px) {
+    .profile-panel {
+        display: none;
+    }
+
+    .profile-main-panel {
+        padding: 100px 20px;
+    }
+}
+
+@media (min-width: 960px) {
+    .tiny-profile-lanel {
+        display: none;
+    }
+
+    ;
+}
+
+
+
+.phone {
+    input {
+        border-color: transparent;
+        background-color: #023E7D;
+        background: #023E7D;
+        color: #82B3E4
+    }
+}
+
+.lesson-btn-1 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #D52127;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-1:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #D52127;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-1:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #D52127;
+    border-bottom: 2px solid transparent;
+}
+
+////////////////////////////
+
+
+.lesson-btn-2 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #F36621;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-2:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F36621;
+    border-bottom: 2px solid transparent;
+    
+}
+
+.btn.lesson-btn-2:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F36621;
+    border-bottom: 2px solid transparent;
+}
+
+//////////////////////////////////
+.lesson-btn-3 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #F6851E;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-3:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F6851E;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-3:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F6851E;
+    border-bottom: 2px solid transparent;
+}
+
+//////////////////////////////////
+.lesson-btn-4 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #F9EE1C;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-4:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F9EE1C;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-4:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F9EE1C;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-5 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #FCED23;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-5:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #FCED23;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-5:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #FCED23;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-6 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #8CC640;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-6:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #8CC640;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-6:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #8CC640;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-7 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #07B151;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-7:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #07B151;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-7:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #07B151;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-8 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #2FBBB3;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-8:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #2FBBB3;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-8:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #2FBBB3;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-9 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #2357BC;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-9:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #2357BC;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-9:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #2357BC;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-10 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #4C489B;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-10:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #4C489B;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-10:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #4C489B;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-11 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #733B97;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-11:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #733B97;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-11:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #733B97;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-12 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #AF3A94;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-12:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #AF3A94;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-12:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #AF3A94;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-13 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #D52127;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-13:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #D52127;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-13:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #D52127;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-14 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #F36621;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-14:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F36621;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-14:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F36621;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-15 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #F6851E;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-15:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F6851E;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-15:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #F6851E;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-16 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #FBB40F;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-16:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #FBB40F;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-16:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #FBB40F;
+    border-bottom: 2px solid transparent;
+}
+//////////////////////////////////
+.lesson-btn-17 {
+    background-color: #001845;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #FCED23;
+    border-radius: 0px;
+    transition: 0s;
+    padding: 2px auto;
+    margin: 0 6px
+}
+
+.lesson-btn-17:hover {
+    background-color: #001845;
+    font-weight: 500;
+    color: #FCED23;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.lesson-btn-17:focus {
+    background-color: #001845;
+    font-weight: 500;
+    color: #FCED23;
+    border-bottom: 2px solid transparent;
+}
+
+@media (min-width: 960px) {
+    .tutorial-left-panel {
+        position: fixed;
+        z-index: 1;
+        height: 100vh
+    };
+    .profile-main-panel {
+        padding-top: 194px;
+    }
+}
+
+@media (max-width: 960px) {
+    .profile-main-panel {
+        padding-top: 50px;
+    };
+}
+
+code {
+    font-weight: 600;
+    color: rgb(255, 99, 99);
+    font-size: 18px;
+}
+
+.lesson-exercise-card {
+    border: 1px solid #C1D9F2;
+    border-radius: 4px;
+    background-color: #001845;
+    margin: 0px;
+    padding: 24px;
+    h5 {
+        color: #C1D9F2
+    }
+    hr {
+        color: #C1D9F2
+    }
+}
+
+.identificator-input {
+    color:#C1D9F2;
+    font-size: 18px;
+    font-weight: 600;
+    padding: auto 8px;
+    background: #013369;
+    border: none;
+    border-bottom: 2px solid #C1D9F2;
+    text-align: center;
+}
+
+.string-input {
+    color:#00B000;
+    font-size: 18px;
+    font-weight: 600;
+    padding: auto 8px;
+    background: #013369;
+    border: none;
+    border-bottom: 2px solid #00B000;
+    text-align: center;
+}
+
+.uncorrect-answer-a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn.exercise-link-btn {
+    border: 1px solid #C1D9F2;
+    border-radius: 1px;
+    background-color: transparent;
+    margin: 12px auto
+}
+
+.btn.exercise-link-btn:hover {
+    border: 1px solid #013369;
+    border-radius: 1px;
+    background-color: #013369;
+    color: #C1D9F2;
+    margin: 12px auto
+}
