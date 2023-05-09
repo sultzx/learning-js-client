@@ -1,12 +1,23 @@
 import React from "react"
-import { Container, Row, Col, Button, Card, Form } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import { Container, Row, Col, Button, Card, Form, ProgressBar } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { lessons } from "../../../lessons.js"
+import { fetchGetScore, fetchSetScore } from "../../../redux/slices/user.js"
+import rb from '../../../images/rb.png'
+import gb from '../../../images/gb.png'
+import r from '../../../images/r.png'
+import g from '../../../images/g.png'
 
 const E1 = () => {
 
     const { id } = useParams()
+
+    const dispatch = useDispatch()
+
+    const { data, score } = useSelector(state => state.user)
+
+
 
     const sortedName = []
 
@@ -16,23 +27,58 @@ const E1 = () => {
         }
     })
 
-    console.log(sortedName && sortedName)
-
-    const { data } = useSelector(state => state.user)
+    console.log(sortedName[0]?.color)
 
 
     const [iden, setId] = React.useState()
     const [s, setS] = React.useState()
 
+    const [count, setCount] = React.useState(0)
+
     const [isTrue, setIsTrue] = React.useState('do')
 
-    const check = () => {
+    console.log(score && score.data)
+
+    React.useEffect(() => {
+        dispatch(fetchGetScore(sortedName[0]?.color))
+    }, [])
+
+    const sortedScore = []
+
+    sortedScore.push(score?.data?.first)
+
+    console.log(sortedScore && sortedScore[0])
+
+    const check = async () => {
         if (iden == 'carName' && (s == 'volvo' || s == 'Volvo')) {
             setIsTrue('yes')
+            await dispatch(fetchSetScore({
+                chapter: sortedName[0]?.color,
+                lesson: 1,
+                score: 1
+            }))
+            setInterval(() => {
+                setCount(prevcount =>  prevcount + 1)
+            }, 200);
+
         } else {
             setIsTrue('no')
+            await dispatch(fetchSetScore({
+                chapter: sortedName[0]?.color,
+                lesson: 1,
+                score: 0
+            }))
+            setInterval(() => {
+                setCount(prevcount =>  prevcount + 1)
+            }, 200);
         }
     }
+
+    if (count && count >= 10) {
+        window.location.reload()
+    }
+
+    console.log(score && score )
 
     return (
         <Container fluid>
@@ -50,6 +96,7 @@ const E1 = () => {
                                             "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"}
                                     For
                                     className="img-fluid" style={{
+                                        borderRadius: '50%',
                                         width: '120px',
                                         height: '120px',
                                         margin: '6px auto',
@@ -64,11 +111,16 @@ const E1 = () => {
                     <hr style={{ color: 'white' }} />
                     <Row>
                         <Col>
-                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/1`}>Тапсырма 1</Button>
-                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/2`}>Тапсырма 2</Button>
-                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/3`}>Тапсырма 3</Button>
-                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/4`}>Тапсырма 4</Button>
-                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/5`}>Тапсырма 5</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/1`}>
+                                <img  src={score?.data?.first == 1 ? g : score?.data?.first == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 1</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/2`}>
+                                <img src={score?.data?.second == 1 ? g : score?.data?.second == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 2</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/3`}>
+                                <img src={score?.data?.third == 1 ? g : score?.data?.third == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 3</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/4`}>
+                                <img src={score?.data?.fourth == 1 ? g : score?.data?.fourth == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 4</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/5`}>
+                                <img src={score?.data?.fifth == 1 ? g : score?.data?.fifth == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 5</Button>
                         </Col>
                     </Row>
                     <br />
@@ -80,9 +132,16 @@ const E1 = () => {
                     backgroundColor: '#C1D9F2',
                     height: '100vh'
                 }}>
-                    <h2 style={{ color: '#001845' }}>{sortedName[0].name + ". " + 'Тапсырма: 1'}</h2>
+                    <h2 style={{ color: '#001845' }}>{sortedName[0].name + ". " + 'Тапсырма: 1 '} 
+                    <img src={sortedScore && sortedScore[0] == 1 ? gb : sortedScore[0] == 0 ? rb : ''} width={'50px'} alt="" />
+                    </h2>
                     <hr style={{ color: '#001845' }} />
                     <Col md={8}>
+                    <ProgressBar striped variant="primary" style={{
+                        border: '1 solid',
+                        padding: '0',
+                        margin: '0'
+                    }} animated max={10} now={count} />
                         {/* //////////////////////МЫНА ЖЕРДЕ ТАПСЫРМА//// */}
                         {
                             isTrue == 'yes' ?
@@ -90,7 +149,7 @@ const E1 = () => {
                                     backgroundColor: '#D9EEE1',
                                     color: '#001845',
                                     padding: '24px',
-                                    height: '580px'
+                                    height: '420px'
                                 }}>
                                     <h2 style={{ color: '#04AA6D' }}>
                                         Жауап дұрыс!
@@ -101,7 +160,7 @@ const E1 = () => {
                                         backgroundColor: '#FFC0C7',
                                         color: '#B94A48',
                                         padding: '24px',
-                                        height: '580px'
+                                        height: '420px'
                                     }}>
                                         <div>
                                             <h2 style={{ color: '#B94A48' }}>
@@ -112,11 +171,11 @@ const E1 = () => {
                                     </div>
                                     : isTrue == 'do' &&
                                     <>
-                                        <div  style={{
+                                        <div style={{
                                             backgroundColor: 'white',
                                             color: '#001845',
                                             padding: '24px',
-                                            height: '580px'
+                                            height: '420px'
                                         }}>
                                             <Row >
                                                 <Col className="col-12">

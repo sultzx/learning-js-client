@@ -25,6 +25,19 @@ export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (param
     }    
 })
 
+
+export const fetchPushScores = createAsyncThunk('auth/fetchPushScores', async (params, {rejectWithValue}) => {
+    try {
+      const  response  = await axios.post('/api/user/auth/push-scores', params)
+        return response.data  
+    } catch (error) {
+        if (!error.response) {
+            throw error
+        }
+        return rejectWithValue(error.response.data)
+    }    
+})
+
 export const fetchUpdate = createAsyncThunk('auth/fetchUpdate', async (params, {rejectWithValue}) => {
     try {
         const  response  = await axios.patch('api/user/me/update', params)
@@ -36,6 +49,21 @@ export const fetchUpdate = createAsyncThunk('auth/fetchUpdate', async (params, {
           return rejectWithValue(error.response.data)
       }    
 })
+
+
+
+export const fetchSetScore = createAsyncThunk('auth/fetchSetScore', async (params, {rejectWithValue}) => {
+    try {
+        const  response  = await axios.patch('api/user/me/set-score', params)
+          return response.data
+      } catch (error) {
+          if (!error.response) {
+              throw error
+          }
+          return rejectWithValue(error.response.data)
+      }    
+})
+
 
 /////////////////////////////////////////////////////
 
@@ -52,10 +80,45 @@ export const fetchGetAll = createAsyncThunk('auth/fetchGetAll', async () => {
 })
 
 
+export const fetchGetScore = createAsyncThunk('auth/fetchGetScore', async (param, {rejectWithValue}) => {
+    try {
+        const  response  = await axios.get('api/user/me/get-score/' + param, )
+
+          return response.data
+      } catch (error) {
+          if (!error.response) {
+              throw error
+          }
+          return rejectWithValue(error.response.data)
+      }    
+})
+
+export const fetchGetRating = createAsyncThunk('auth/fetchGetRating', async () => {
+    const { data } = await axios.get('/api/user/me/get-rating')    
+    return data
+})
+
+export const fetchGetAllRatings = createAsyncThunk('auth/fetchGetAllRatings', async () => {
+    const { data } = await axios.get('/api/user/get-all-ratings')    
+    return data
+})
+
 
 
 const initialState = {
     all_users: {
+        items: [],
+        status: 'loading',
+        error: '' 
+    } ,
+    score: {
+        data: null,
+        items: [],
+        status: 'loading',
+        error: '' 
+    } ,
+    rating: {
+        data: null,
         items: [],
         status: 'loading',
         error: '' 
@@ -89,6 +152,47 @@ const userSlice = createSlice({
             state.all_users.status = 'error'
             state.all_users.items = null
         },
+
+        [fetchGetRating.pending]: (state) => {
+            state.rating.status = 'loading'
+            state.rating.data = null
+        },
+        [fetchGetRating.fulfilled]: (state, action) => {
+            state.rating.status = 'loaded'
+            state.rating.data = action.payload
+        },
+        [fetchGetRating.rejected]: (state) => {
+            state.rating.status = 'error'
+            state.rating.data = null
+        },
+
+        [fetchGetAllRatings.pending]: (state) => {
+            state.rating.status = 'loading'
+            state.rating.items = []
+        },
+        [fetchGetAllRatings.fulfilled]: (state, action) => {
+            state.rating.status = 'loaded'
+            state.rating.items = action.payload
+        },
+        [fetchGetAllRatings.rejected]: (state) => {
+            state.rating.status = 'error'
+            state.rating.items = []
+        },
+
+
+        [fetchGetScore.pending]: (state) => {
+            state.score.status = 'loading'
+            state.score.data = null
+        },
+        [fetchGetScore.fulfilled]: (state, action) => {
+            state.score.status = 'loaded'
+            state.score.data = action.payload
+        },
+        [fetchGetScore.rejected]: (state) => {
+            state.score.status = 'error'
+            state.score.data = null
+        },
+
 
 
         [fetchAuthMe.pending]: (state) => {

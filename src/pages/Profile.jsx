@@ -1,12 +1,14 @@
 import React from "react"
 import { Container, Row, Col, Button, Card, Form } from "react-bootstrap"
 import { useForm } from "react-hook-form"
-import { fetchAuthMe, fetchUpdate } from "../redux/slices/user.js"
+import { fetchAuthMe, fetchGetRating, fetchUpdate } from "../redux/slices/user.js"
 import { useDispatch, useSelector } from "react-redux"
 
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { Rating } from 'react-simple-star-rating'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 import axios from '../axios.js'
 
@@ -18,11 +20,28 @@ const Profile = () => {
 
     const [errorMessage, setErrorMessage] = React.useState('')
 
-    const { data } = useSelector((state) => state.user)
+    const { data, rating } = useSelector((state) => state.user)
 
     const [phone, setPhone] = React.useState(data?.phone)
 
+    let myRating = 0
+    let result = 0
     console.log(data && data)
+
+    React.useEffect(() => {
+        dispatch(fetchGetRating())
+    }, [])
+
+    console.log(rating && rating)
+
+    if (rating) {
+        const wasd = rating?.data && rating?.data[0]
+        console.log(wasd)
+         result = (wasd?.correct + wasd?.wrong) == wasd?.completed ? 
+           ( wasd?.correct * 100) / wasd?.completed
+        : 0
+        myRating = (5 * result) / 100
+    }
 
     const handleAvatar = async (event) => {
         try {
@@ -68,8 +87,10 @@ const Profile = () => {
         if ("token" in data.payload) {
             window.localStorage.setItem("token", data.payload.token);
         }
-        
+
     };
+
+    console.log(myRating)
 
     return (
         <Container fluid>
@@ -99,11 +120,33 @@ const Profile = () => {
                     <input type="file" hidden ref={inputImageRef} onChange={handleAvatar} />
                     <br />
                     <hr style={{ color: 'white' }} />
+                    <Row>
+                        <Col md={12} style={{
+                            padding: '8px 68px',
+                        }}>
+                            <CircularProgressbar value={result} styles={buildStyles({
+                                strokeLinecap: 'butt',
+                                textSize: '14px',
+                                pathTransitionDuration: 0.5,
+                                pathColor: `rgba(16, 34, 230, ${result / 100})`,
+                                textColor: '#FFFFFF',
+                                trailColor: '#d6d6d6',
+                                backgroundColor: '#3e98c7'
+                            })} text={`${result}%`} />
+                        </Col>
+                        <Col md={12} style={{
+                            padding: '8px 38px',
+                        }}>
+                            <Rating initialValue={myRating} size={36} readonly iconsCount={5} />
+                        </Col>
+                    </Row>
                 </Col>
 
 
 
                 <Col md={'10'} className="profile-main-panel">
+                    <br />
+                    <br />
                     <Row>
                         <Col md={8} className="tiny-profile-lanel text-center">
                             <Row>
@@ -114,6 +157,7 @@ const Profile = () => {
                                                 "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"}
 
                                         className="img-fluid" style={{
+                                            borderRadius: '50%',
                                             width: '120px',
                                             height: '120px',
                                             margin: '6px auto',
@@ -129,9 +173,28 @@ const Profile = () => {
                                 </Col>
                             </Row>
                             <hr style={{ color: 'white' }} />
+                            <Row>
+                                <Col md={6} xs={6}>
+                                    <CircularProgressbar value={result} styles={buildStyles({
+                                        strokeLinecap: 'butt',
+                                        textSize: '14px',
+                                        pathTransitionDuration: 0.5,
+                                        pathColor: `rgba(16, 34, 230, ${result / 100})`,
+                                        textColor: '#FFFFFF',
+                                        trailColor: '#d6d6d6',
+                                        backgroundColor: '#3e98c7',
+                                    })} text={`${result}%`} />
+                                </Col>
+                                <Col md={12} xs={6} className="d-flex align-items-center" style={{
+                                    padding: '8px 38px',
+                                }}>
+                                    <Rating initialValue={myRating} size={28} readonly iconsCount={5} />
+                                </Col>
+                            </Row>
+                            <br />
                         </Col>
                     </Row>
-
+                                
                     <h2 style={{ color: '#C1D9F2' }}>{data?.fullname ? data?.fullname : 'Толық атыңыз'}</h2>
                     <hr style={{ color: 'white' }} />
 
@@ -247,7 +310,7 @@ const Profile = () => {
                         <div className="mb-3">
                             <button
                                 style={{ padding: '12px 24px', marginTop: '10px', fontSize: '16px', fontWeight: '600' }}
-                               disabled={!isValid}
+                                disabled={!isValid}
                                 className="signup-btn"
                                 type="submit"
                             >

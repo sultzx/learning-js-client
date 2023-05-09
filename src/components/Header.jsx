@@ -43,10 +43,15 @@ const Navigation = () => {
         }}>
           <Nav className="me-auto" >
             <Nav.Link href="/profile">Жеке профиль</Nav.Link>
-            <Nav.Link href="/tutorial">Оқулық</Nav.Link>
+            <Nav.Link href="/tutorial/variables">Оқулық</Nav.Link>
             {/* <Nav.Link href="/">Интерактив</Nav.Link> */}
             <Nav.Link href="/lessons">Тапсырмалар</Nav.Link>
-            <Nav.Link href="/">Online Bootcamp</Nav.Link>
+            <Nav.Link href="/bootcamp">Bootcamp</Nav.Link>
+            <Nav.Link href="/ratings">Рейтинг</Nav.Link>
+            {data?.isAdmin == true && 
+            <Nav.Link href="/admin">Админ панелі</Nav.Link>
+            }
+            
           </Nav>
           {
             isAuth ? 

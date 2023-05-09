@@ -1,7 +1,7 @@
 import React from "react"
 import { Container, Row, Col, Button, Card, Form } from "react-bootstrap"
 import { useSelector } from "react-redux"
-import {lessons} from '../lessons.js'
+import { lessons } from '../lessons.js'
 
 
 const Tutorial = () => {
@@ -23,8 +23,9 @@ const Tutorial = () => {
                                     src={
                                         data?.avatarUrl ? `http://localhost:5050${data?.avatarUrl}` :
                                             "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"}
-                                            For
+                                    
                                     className="img-fluid" style={{
+                                        borderRadius: '50%',
                                         width: '120px',
                                         height: '120px',
                                         margin: '6px auto',
@@ -40,7 +41,7 @@ const Tutorial = () => {
                     <Row>
                         <Col md={12} className="text-center">
                             {
-                                lessons?.map((lesson, i) => 
+                                lessons?.map((lesson, i) =>
                                 (<Button className={`lesson-btn-${i + 1}`} onClick={() => {
                                     window.location.assign(`http://localhost:3000/tutorial/${lesson.color}`)
                                 }}>
@@ -55,7 +56,7 @@ const Tutorial = () => {
                 </Col>
 
                 <Col md={'10'} className="profile-main-panel">
-                    
+
                 </Col>
             </Row>
         </Container >)

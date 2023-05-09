@@ -1,14 +1,20 @@
 import React from "react"
-import { Container, Row, Col, Button, Card, Form } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import { Container, Row, Col, Button, Card, Form, ProgressBar } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { lessons } from "../../../lessons.js"
-
+import { fetchGetScore, fetchSetScore } from "../../../redux/slices/user.js"
+import rb from '../../../images/rb.png'
+import gb from '../../../images/gb.png'
+import r from '../../../images/r.png'
+import g from '../../../images/g.png'
 const E4 = () => {
 
-    const {id} = useParams()
+    const { id } = useParams()
 
     const sortedName = []
+
+    const dispatch = useDispatch()
 
     lessons?.forEach((lesson, i) => {
         if (lesson.id == id) {
@@ -18,7 +24,49 @@ const E4 = () => {
 
     console.log(sortedName && sortedName)
 
-    const { data } = useSelector(state => state.user)
+    const { data, score } = useSelector(state => state.user)
+    const [count, setCount] = React.useState(0)
+    const [isTrue, setIsTrue] = React.useState('do')
+
+    const [vvar, setVar] = React.useState()
+    const [iden, setIden] = React.useState()
+    const [func, setFunc] = React.useState()
+
+    React.useEffect(() => {
+        dispatch(fetchGetScore(sortedName[0]?.color))
+    }, [])
+
+    const sortedScore = []
+
+    sortedScore.push(score?.data?.fourth)
+
+    console.log(sortedScore && sortedScore[0])
+
+    const check = async () => {
+        if (vvar == 'var' && (iden == 'z') && (func == 'alert')) {
+            setIsTrue('yes')
+            await dispatch(fetchSetScore({
+                chapter: sortedName[0]?.color, 
+                lesson: 4, 
+                score: 1}))
+                setInterval(() => {
+                    setCount(prevcount =>  prevcount + 1)
+                }, 200);
+        } else {
+            setIsTrue('no')
+            await dispatch(fetchSetScore({
+                chapter: sortedName[0]?.color, 
+                lesson: 4, 
+                score: 0}))
+                setInterval(() => {
+                    setCount(prevcount =>  prevcount + 1)
+                }, 200);
+        }
+    }
+
+    if (count && count >= 10) {
+        window.location.reload()
+    }
 
     return (
         <Container fluid>
@@ -36,6 +84,7 @@ const E4 = () => {
                                             "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"}
                                     For
                                     className="img-fluid" style={{
+                                        borderRadius: '50%',
                                         width: '120px',
                                         height: '120px',
                                         margin: '6px auto',
@@ -48,33 +97,148 @@ const E4 = () => {
                         </Row>
                     </Row>
                     <hr style={{ color: 'white' }} />
-                     <Row>
-                        <Col>
-                            <Button className="d-block exercise-link-btn"  href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/1`}>Тапсырма 1</Button>
-                            <Button className="d-block exercise-link-btn"  href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/2`}>Тапсырма 2</Button>
-                            <Button className="d-block exercise-link-btn"  href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/3`}>Тапсырма 3</Button>
-                            <Button className="d-block exercise-link-btn"  href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/4`}>Тапсырма 4</Button>
-                            <Button className="d-block exercise-link-btn"  href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/5`}>Тапсырма 5</Button>
+                    <Row>
+                    <Col>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/1`}>
+                                <img  src={score?.data?.first == 1 ? g : score?.data?.first == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 1</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/2`}>
+                                <img src={score?.data?.second == 1 ? g : score?.data?.second == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 2</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/3`}>
+                                <img src={score?.data?.third == 1 ? g : score?.data?.third == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 3</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/4`}>
+                                <img src={score?.data?.fourth == 1 ? g : score?.data?.fourth == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 4</Button>
+                            <Button className="d-block exercise-link-btn" href={`http://localhost:3000/lessons/${id}/${sortedName[0].color}/5`}>
+                                <img src={score?.data?.fifth == 1 ? g : score?.data?.fifth == 0 ? r : ''} width={'32px'} alt="" />&nbsp; Тапсырма 5</Button>
                         </Col>
-                    </Row>               
+                    </Row>
                     <br />
                     <br />
                 </Col>
 
                 <Col md={2}></Col>
-                <Col md={'10'} className="profile-main-panel"  style={{
+                <Col md={'10'} className="profile-main-panel" style={{
                     backgroundColor: '#C1D9F2',
                     height: '100vh'
                 }}>
-                    <h2 style={{ color: '#001845' }}>{ sortedName[0].name  + ". " + 'Тапсырма: 4'}</h2>
+                    <h2 style={{ color: '#001845' }}>{sortedName[0].name + ". " + 'Тапсырма: 4 '}
+                    <img src={sortedScore && sortedScore[0] == 1 ? gb : sortedScore[0] == 0 ? rb : ''} width={'50px'} alt="" />
+                    </h2>
+                    
                     <hr style={{ color: '#001845' }} />
                     <Col md={8}>
-                        {/* //////////////////////МЫНА ЖЕРДЕ ТАПСЫРМА
-                        /////////////////////////////////////////////
+                    <ProgressBar striped variant="primary" style={{
+                        border: '1 solid',
+                        padding: '0',
+                        margin: '0'
+                    }} animated max={10} now={count} />
+                        {/* //////////////////////МЫНА ЖЕРДЕ ТАПСЫРМА */}
+
+                        {
+                            isTrue == 'yes' ?
+                                <div className="d-flex row align-items-center" style={{
+                                    backgroundColor: '#D9EEE1',
+                                    color: '#001845',
+                                    padding: '24px',
+                                    height: '420px'
+                                }}>
+                                    <h2 style={{ color: '#04AA6D' }}>
+                                        Жауап дұрыс!
+                                    </h2>
+                                </div>
+                                : isTrue == 'no' ?
+                                    <div className="d-flex row align-items-center" style={{
+                                        backgroundColor: '#FFC0C7',
+                                        color: '#B94A48',
+                                        padding: '24px',
+                                        height: '420px'
+                                    }}>
+                                        <div>
+                                            <h2 style={{ color: '#B94A48' }}>
+                                                Жауап қате!
+                                            </h2>
+                                            <a className="uncorrect-answer-a" onClick={() => { setIsTrue('do') }}>қайтадан орындау</a>
+                                        </div>
+                                    </div>
+
+                                    /////////////////////////////////////////////
+
+                                    : isTrue == 'do' &&
+                                    <>
+                                        <div style={{
+                                            backgroundColor: 'white',
+                                            color: '#001845',
+                                            padding: '24px',
+                                            height: '420px'
+                                        }}>
+                                            <Row >
+                                                <Col className="col-12">
+                                                    <p style={{ color: '#001845', fontSize: '18px' }}>
+                                                        <code>z</code>   деп аталатын айнымалыны жасаңыз, оған <code>x</code>  + <code>y</code>  тағайындаңыз және нәтижені <code>alert</code>  жолағында көрсетіңіз.
+                                                    </p>
+                                                </Col>
+                                                <Col className="col-12">
+                                                    <div className="" style={{
+                                                        backgroundColor: '#013369',
+                                                        color: '#001845',
+                                                        padding: '24px'
+                                                    }}>
+                                                        <Row>
+                                                            <Col className="col-auto d-flex column justify-content-end">
+                                                                <code>var</code>&nbsp;&nbsp;&nbsp;
+                                                                <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>&nbsp;x &nbsp;&nbsp; = &nbsp;&nbsp; 5</div>
+                                                            </Col>
+                                                            <hr style={{ color: 'transparent' }} />
+
+                                                            <Col className="col-auto d-flex column justify-content-end">
+                                                                <code>var</code>&nbsp;&nbsp;&nbsp;
+                                                                <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>&nbsp;y &nbsp;&nbsp; = &nbsp;&nbsp; 10</div>
+                                                            </Col>
+                                                            <hr style={{ color: 'transparent' }} />
+
+                                                            <Col className="col-auto d-flex column justify-content-end">
+
+                                                                <input type="text"
+                                                                    onChange={(event) => {
+                                                                        setVar(event.target.value)
+                                                                    }}
+                                                                    className="iden-input" style={{ width: '30px' }} />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                                <input type="text"
+                                                                    onChange={(event) => {
+                                                                        setIden(event.target.value)
+                                                                    }}
+                                                                    className="identificator-input" style={{ width: '30px' }} />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>=
+                                                                &nbsp;&nbsp; x &nbsp;&nbsp; + &nbsp;&nbsp; y&nbsp;&nbsp; 
+                                                                </div>
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                            </Col>
+
+                                                            <hr style={{ color: 'transparent' }} />
+                                                            <Col className="col-auto d-flex column justify-content-end">
+
+                                                                <input type="text"
+                                                                    onChange={(event) => {
+                                                                        setFunc(event.target.value)
+                                                                    }}
+                                                                    className="operator-input"
+                                                                    style={{ width: '100px' }} />
+                                                                <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>&nbsp;(x)</div>
+                                                            </Col>
+                                                        </Row>
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                        <Button className="signup-btn" style={{ margin: '20px 0px' }} onClick={check}>Жауапты тексеру</Button>
+                                    </>
+                        }
 
 
-
-                        ///////////////////////////////////////////// */}
+                        { /*  ///////////////////////////////////////////// */}
                     </Col>
                 </Col>
             </Row>

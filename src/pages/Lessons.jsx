@@ -24,6 +24,7 @@ const Lessons = () => {
                                             "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"}
                                     For
                                     className="img-fluid" style={{
+                                        borderRadius: '50%',
                                         width: '120px',
                                         height: '120px',
                                         margin: '6px auto',

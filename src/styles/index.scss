@@ -622,6 +622,49 @@ code {
     border-bottom: 2px solid #00B000;
     text-align: center;
 }
+.number-input {
+    color:#48cae4;
+    font-size: 18px;
+    font-weight: 600;
+    padding: auto 8px;
+    background: #013369;
+    border: none;
+    border-bottom: 2px solid #48cae4;
+    text-align: center;
+}
+
+.operator-input {
+    color:#f038d5;
+    font-size: 18px;
+    font-weight: 600;
+    padding: auto 8px;
+    background: #013369;
+    border: none;
+    border-bottom: 2px solid #f038d5;
+    text-align: center;
+}
+
+.iden-input {
+    color:#FF6363;
+    font-size: 18px;
+    font-weight: 600;
+    padding: auto 8px;
+    background: #013369;
+    border: none;
+    border-bottom: 2px solid #FF6363;   
+    text-align: center;
+}
+
+.function-input {
+    color:#8232fb;
+    font-size: 18px;
+    font-weight: 600;
+    padding: auto 8px;
+    background: #013369;
+    border: none;
+    border-bottom: 2px solid #8232fb;   
+    text-align: center;
+}
 
 .uncorrect-answer-a:hover {
     text-decoration: underline;

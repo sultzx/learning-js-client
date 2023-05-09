@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 
-import { fetchRegister, selectIsAuth } from "../redux/slices/user.js";
+import { fetchPushScores, fetchRegister, selectIsAuth } from "../redux/slices/user.js";
 
 const Signup = () => {
 
@@ -45,6 +45,9 @@ const Signup = () => {
             if ("token" in data.payload) {
                 window.localStorage.setItem("token", data.payload.token);
             }
+
+            dispatch(fetchPushScores())
+
         } else {
             setMatchedPass(false);
         }

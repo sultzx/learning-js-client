@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 
 import * as fetches from './redux/slices/user.js'
-import { Main, Signup, Signin, Profile, Tutorial, Lessons } from './pages/index.js'
+import { Main, Signup, Signin, Profile, Tutorial, Lessons, Ratings, Admin, Bootcamp } from './pages/index.js'
 import {Variables} from './pages/Tutorial/index.js'
 import { Header } from "./components/index.js";
 
@@ -27,6 +27,12 @@ function App() {
     <Route path="/profile" element={<><Header/><Profile/></>  } />
     <Route path="/tutorial" element={<><Header/><Tutorial/></>  } />
     <Route path="/lessons" element={<><Header/><Lessons/></>  } />
+    <Route path="/bootcamp" element={<><Header/><Bootcamp/></>  } />
+    <Route path="/ratings" element={<><Header/><Ratings/></>  } />
+    {
+      data?.isAdmin == true && <Route path="/admin" element={<><Header/><Admin/></>  } />
+    }
+    
     ////////////////////////////////////////////
 
     <Route path="/tutorial/variables" element={<><Header/><Variables/></>  } /> 
