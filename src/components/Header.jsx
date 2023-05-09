@@ -4,6 +4,7 @@ import { Code } from 'react-bootstrap-icons'
 import JS5 from '../images/JS5.png'
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectIsAuth } from "../redux/slices/user";
+import { Navigate } from "react-router-dom";
 
 const Navigation = () => {
 
@@ -17,6 +18,8 @@ const Navigation = () => {
     if (window.confirm("Жүйеден шығасыз ба?")) dispatch(logout());
     window.localStorage.removeItem("token");
   };
+
+  isAuth &&  (<Navigate to={'/'}/>)
 
   return (
     <Navbar collapseOnSelect expand="lg" className="shadow" variant="dark" fixed="top" style={{

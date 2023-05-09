@@ -11,7 +11,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import top10 from '../images/top10.png'
 import axios from '../axios.js'
-import { fetchCreateBootcamp } from "../redux/slices/bootcamp.js"
+import { fetchCreateBootcamp, fetchGetBootcamps } from "../redux/slices/bootcamp.js"
 
 const Admin = () => {
 
@@ -22,6 +22,8 @@ const Admin = () => {
     const [errorMessage, setErrorMessage] = React.useState('')
 
     const { data, rating } = useSelector((state) => state.user)
+
+    const bootcamp = useSelector(state => state.bootcamp.data)
 
     const isAuth = useSelector(selectIsAuth)
 
@@ -38,6 +40,7 @@ const Admin = () => {
     React.useEffect(() => {
         dispatch(fetchGetAllRatings())
         dispatch(fetchGetRating())
+        dispatch(fetchGetBootcamps())
     }, [])
 
     const setRating = (rating) => {
@@ -65,6 +68,7 @@ const Admin = () => {
 
     if (rating?.items) {
         rating?.items?.forEach((rat, i) => {
+            i++
             switch (rat?.correct) {
                 case 5: grades[5] += 1
                     break
@@ -78,10 +82,15 @@ const Admin = () => {
                     break
             }
             completed += rat?.completed
-
-            countCompleted += i
+            console.log( 'iii',  i)
+            if (rat?.completed != 0) {
+                countCompleted += 1
+            }
+            
         })
     }
+
+    console.log('bootcamp', bootcamp && bootcamp[0]?.members?.length)
 
     console.log(((completed && completed) * 100) / rating?.items[0]?.total)
 
@@ -176,12 +185,12 @@ const Admin = () => {
                                         textColor: '#013369',
                                         trailColor: '#d6d6d6',
                                         backgroundColor: '#3e98c7'
-                                    })} text={`${((countCompleted && countCompleted) * 100) / rating?.items?.length}%`} />
+                                    })} text={`${Math.floor(((countCompleted && countCompleted) * 100) / rating?.items?.length * 100 ) / 100}%`} />
                                 </Col>
                                 <Col md={4} xs={6} style={{ padding: '20px 64px' }}>
-                                    <h6>dwdwd</h6>
+                                    <h6>Bootcamp-қа қатысу</h6>
                                     <br />
-                                    <CircularProgressbar value={34} styles={buildStyles({
+                                    <CircularProgressbar value={(bootcamp && bootcamp[0]?.members?.length) * 100 / 10} styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
                                         pathTransitionDuration: 0.5,
@@ -189,14 +198,14 @@ const Admin = () => {
                                         textColor: '#013369',
                                         trailColor: '#d6d6d6',
                                         backgroundColor: '#3e98c7'
-                                    })} text={`${34}%`} />
+                                    })} text={`${(bootcamp && bootcamp[0]?.members?.length) * 100 / 10}%`} />
                                 </Col>
 
                                 <Col md={12} style={{ padding: '16px 24px 16px 24px' }}>
                                     <h6>Бағалар көрсеткіші</h6>
 
                                     <ProgressBar animated striped
-                                        label={`5 (${((grades?.[5] * 100) / rating?.items?.length)}%)`}
+                                        label={`5 (${Math.floor(((grades?.[5] * 100) / rating?.items?.length)* 100 ) / 100 }%)`}
                                         style={{
                                             border: '1px solid #013369',
                                             borderRadius: '1px'
@@ -205,7 +214,7 @@ const Admin = () => {
                                         now={grades?.[5] != 0 ? ((grades?.[5] * 100) / rating?.items?.length) : 5} />
                                     <br />
                                     <ProgressBar animated striped
-                                        label={`4 (${((grades?.[4] * 100) / rating?.items?.length)}%)`}
+                                        label={`4 (${Math.floor(((grades?.[4] * 100) / rating?.items?.length)* 100 ) / 100 }%)`}
                                         style={{
                                             border: '1px solid #013369',
                                             borderRadius: '1px'
@@ -214,7 +223,7 @@ const Admin = () => {
                                         now={grades?.[4] != 0 ? ((grades?.[4] * 100) / rating?.items?.length) : 5} />
                                     <br />
                                     <ProgressBar animated striped
-                                        label={`3 (${((grades?.[3] * 100) / rating?.items?.length)}%)`}
+                                        label={`3 (${Math.floor(((grades?.[3] * 100) / rating?.items?.length)* 100 ) / 100 }%)`}
                                         style={{
                                             border: '1px solid #013369',
                                             borderRadius: '1px'
@@ -223,7 +232,7 @@ const Admin = () => {
                                         now={grades?.[3] != 0 ? ((grades?.[3] * 100) / rating?.items?.length) : 5} />
                                     <br />
                                     <ProgressBar animated striped
-                                        label={`2 (${((grades?.[2] * 100) / rating?.items?.length)}%)`}
+                                        label={`2 (${Math.floor(((grades?.[2] * 100) / rating?.items?.length)* 100 ) / 100 }%)`}
                                         style={{
                                             border: '1px solid #013369',
                                             borderRadius: '1px'
@@ -232,7 +241,7 @@ const Admin = () => {
                                         now={grades?.[2] != 0 ? ((grades?.[2] * 100) / rating?.items?.length) : 5} />
                                     <br />
                                     <ProgressBar animated striped
-                                        label={`1 (${((grades?.[1] * 100) / rating?.items?.length)}%)`}
+                                        label={`1 (${Math.floor(((grades?.[1] * 100) / rating?.items?.length)* 100 ) / 100 }%)`}
                                         style={{
                                             border: '1px solid #013369',
                                             borderRadius: '1px'
